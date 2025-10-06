@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Secure Checkout</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-black: #0a0a0a;
+      --primary-white: #fff;
+      --gray-200: #e5e7eb;
+      --gray-600: #4b5563;
+      --gray-800: #1f2937;
+      --accent: #2563eb;
+      --shadow-xl: 0 20px 35px rgba(0,0,0,0.25);
+      --card-gradient: linear-gradient(135deg, #1e3a8a, #3b82f6, #06b6d4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at 20% 30%, #0f172a, #020617 90%);
+      color: var(--primary-black);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+ 
+    .payment-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      background: var(--primary-white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+      width: 100%;
+      max-width: 1100px;
+      transition: all 0.3s ease;
+    }
+
+ 
+    .card-visual-section {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      padding: 2.5rem;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+   
+    .light-glow {
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(37,99,235,0.5), transparent 70%);
+      border-radius: 50%;
+      animation: moveGlow 8s ease-in-out infinite alternate;
+    }
+    @keyframes moveGlow {
+      0% { top: 15%; left: 20%; }
+      100% { top: 50%; left: 60%; }
+    }
+
+
+    .credit-card {
+      width: 360px;
+      height: 220px;
+      background: var(--card-gradient);
+      border-radius: 16px;
+      padding: 1.8rem;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+      position: relative;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease;
+    }
+    .credit-card:hover {
+      transform: rotateY(10deg) rotateX(5deg) scale(1.03);
+    }
+
+    
+    .card-chip {
+      width: 50px;
+      height: 36px;
+      background: linear-gradient(145deg, #facc15, #eab308);
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
+    }
+
+    .card-number {
+      font-family: 'Courier New', monospace;
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+      color: #fff;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+
+    .card-holder .label, .card-expiry .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    .card-holder .name, .card-expiry .date {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .card-logo {
+      position: absolute;
+      right: 1.5rem;
+      top: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+    .logo-circle {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: #fbbf24;
+    }
+    .logo-circle.overlap {
+      margin-left: -15px;
+      background: #f87171;
+    }
+
+   
+    .payment-form-section {
+      padding: 2.5rem;
+      background: var(--primary-white);
+    }
+
+    .payment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--gray-200);
+      padding-bottom: 0.8rem;
+    }
+    .payment-title {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gray-800);
+    }
+    .secure-badge {
+      background: var(--accent);
+      color: #fff;
+      padding: 0.4rem 0.7rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .form-group {
+      margin-bottom: 1.1rem;
+    }
+    .form-group label {
+      font-weight: 600;
+      color: var(--gray-800);
+      font-size: 0.9rem;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 2px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border 0.2s ease;
+    }
+    .form-group input:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .btn-payment {
+      width: 100%;
+      margin-top: 1rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .btn-payment:hover {
+      background: #1e40af;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(37,99,235,0.3);
+    }
+
+   
+    .processing-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+    }
+    .processing-card {
+      background: var(--primary-white);
+      padding: 2rem 2.5rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: var(--shadow-xl);
+    }
+    .processing-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid var(--gray-200);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+ 
+    @media (max-width: 900px) {
+      .payment-wrapper {
+        grid-template-columns: 1fr;
+      }
+      .card-visual-section {
+        padding: 1.5rem;
+        order: 2;
+      }
+      .payment-form-section {
+        padding: 1.5rem;
+        order: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="payment-wrapper">
+   
+    <section class="card-visual-section">
+      <div class="light-glow"></div>
+      <div class="credit-card" id="cardBackground">
+        <div class="card-chip"></div>
+        <div class="card-number" id="cardNumberDisplay">•••• •••• •••• ••••</div>
+        <div class="card-footer">
+          <div class="card-holder">
+            <div class="label">Card Holder</div>
+            <div class="name" id="cardHolderDisplay">NAME</div>
+          </div>
+          <div class="card-expiry">
+            <div class="label">Expires</div>
+            <div class="date" id="cardExpiryDisplay">MM/YY</div>
+          </div>
+        </div>
+        <div class="card-logo">
+          <div class="logo-circle"></div>
+          <div class="logo-circle overlap"></div>
+        </div>
+      </div>
+    </section>
+
+  
+    <section class="payment-form-section">
+      <div class="payment-header">
+        <div class="payment-title"><i class="fas fa-credit-card"></i> Secure Checkout</div>
+        <div class="secure-badge">SSL Protected</div>
+      </div>
+
+      <form id="paymentForm">
+        <div class="form-group">
+          <label for="cardNumber">Card Number *</label>
+          <input id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="expiryDate">Expiry Date *</label>
+            <input id="expiryDate" placeholder="MM/YY" maxlength="5" required>
+          </div>
+          <div class="form-group">
+            <label for="cvv">CVV *</label>
+            <input id="cvv" placeholder="123" maxlength="4" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="cardholderName">Cardholder Name *</label>
+          <input id="cardholderName" placeholder="Full name as on card">
+        </div>
+
+        <button type="submit" class="btn-payment">
+          <i class="fas fa-lock"></i> Complete Payment
+        </button>
+      </form>
+    </section>
+  </div>
+
+
+  <div id="processingOverlay" class="processing-overlay">
+    <div class="processing-card">
+      <div class="processing-spinner"></div>
+      <h3>Processing Payment...</h3>
+      <p>Please wait while we securely process your payment.</p>
+    </div>
+  </div>
+
+  <script>
+    const cardNumberInput = document.getElementById('cardNumber');
+    const expiryInput = document.getElementById('expiryDate');
+    const nameInput = document.getElementById('cardholderName');
+    const cardNumberDisplay = document.getElementById('cardNumberDisplay');
+    const cardExpiryDisplay = document.getElementById('cardExpiryDisplay');
+    const cardHolderDisplay = document.getElementById('cardHolderDisplay');
+    const processingOverlay = document.getElementById('processingOverlay');
+
+    const formatCardNumber = (value) =>
+      value.replace(/\D/g, '').substring(0,16).replace(/(.{4})/g, '$1 ').trim();
+
+    const formatExpiry = (value) => {
+      const digits = value.replace(/\D/g,'').substring(0,4);
+      return digits.length <= 2 ? digits : digits.substring(0,2) + '/' + digits.substring(2);
+    };
+
+    cardNumberInput.addEventListener('input', e => {
+      e.target.value = formatCardNumber(e.target.value);
+      cardNumberDisplay.textContent = e.target.value || '•••• •••• •••• ••••';
+    });
+
+    expiryInput.addEventListener('input', e => {
+      e.target.value = formatExpiry(e.target.value);
+      cardExpiryDisplay.textContent = e.target.value || 'MM/YY';
+    });
+
+    nameInput.addEventListener('input', e => {
+      cardHolderDisplay.textContent = e.target.value.toUpperCase() || 'NAME';
+    });
+
+    document.getElementById('paymentForm').addEventListener('submit', e => {
+      e.preventDefault();
+      processingOverlay.style.display = 'flex';
+      setTimeout(() => {
+        processingOverlay.style.display = 'none';
+        alert('Payment simulated successfully!');
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
