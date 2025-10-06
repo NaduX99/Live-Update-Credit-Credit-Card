@@ -6,11 +6,7 @@ A modern, fully responsive **Secure Checkout Page** built using **ASP.NET Razor 
 
 ## 🖼️ Preview
 
-![Payment Page Preview]((https://nadux99.github.io/Live-Update-Credit-Credit-Card/))
-
-> 💡 Tip: Replace the image link above with your own screenshot (upload it under your repo’s “Issues” → “Attach files” → copy link).
-
----
+https://nadux99.github.io/Live-Update-Credit-Credit-Card/
 
 ## ✨ Features
 
