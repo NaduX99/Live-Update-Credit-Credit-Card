@@ -32,4 +32,4 @@ https://nadux99.github.io/Live-Update-Credit-Credit-Card/
 
 ### 1️⃣ Clone the repository
 ```bash
-git clone [https://github.com/yourusername/your-repo-name.git](https://github.com/NaduX99/Live-Update-Credit-Credit-Card.git)
+git clone [https://github.com/yourusername/your-repo-name.git](https://github.com/NaduX99/Live-Update-Credit-Credit-Card.git)](https://github.com/NaduX99/Live-Update-Credit-Credit-Card.git)
