@@ -1,6 +1,6 @@
-# 💳 Realistic 3D Credit Card Payment Page (ASP.NET Razor)
+# 💳 Realistic 3D Credit Card Payment Page
 
-A modern, fully responsive **Secure Checkout Page** built using **ASP.NET Razor (CSHTML)**, featuring a **realistic 3D credit card design** with glossy reflections, smooth animations, and dynamic form validation.
+A modern, fully responsive **Secure Checkout Page** built using **(HTML)**, featuring a **realistic 3D credit card design** with glossy reflections, smooth animations, and dynamic form validation.
 
 ---
 
